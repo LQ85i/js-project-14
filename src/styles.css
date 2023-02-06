@@ -1,0 +1,13 @@
+body {
+    background-color: rgb(17, 43, 40);
+    margin: 0;
+}
+
+#content {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 200px auto 0 auto;
+    width: fit-content;
+}
