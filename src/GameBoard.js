@@ -1,29 +1,27 @@
-import { Ship } from "./ship";
+import { Ship } from "./Ship";
 
 const GameBoard = () => {
-  let width = null;
-  let height = null;
-  let ships = []; // object
-  let map = null;
-  let hits = [];
-  let misses = [];
-  const setup = (w, h) => {
+  let width = undefined;
+  let height = undefined;
+  let ships = undefined;
+  let map = undefined;
+  let hits = undefined;
+  let misses = undefined;
+  const initialize = (w, h) => {
     if (w >= 1 && h >= 1) {
       width = w;
       height = h;
       map = Array(width).fill(Array(height).fill(null));
+      hits = [];
+      misses = [];
+      ships = [];
     }
   };
 
-  const addShip = (length) => {
-    const ship = Ship();
-    ship.setLength(length);
-    ships.push(ship);
-  };
-
-  const placeShip = (ship, pos) => {
+  const addShip = (ship, pos) => {
     //check if there is room for full ship
     if (shipPositionAvailable(ship.getLength(), pos)) {
+      ships.push(ship);
       ship.setPosition(pos);
       if (pos[2] === 0) {
         for (let i = 0; i < ship.getLength(); i++) {
@@ -36,18 +34,19 @@ const GameBoard = () => {
       }
     }
   };
+
   const shipPositionAvailable = (length, pos) => {
     if (pos[2] === 0) {
       for (let i = 0; i < length; i++) {
         const coord = [pos[0] + i, pos[1]];
-        if (shipInCoordinate(coord) !== null || !isWithinBoard(coord)) {
+        if (shipInCoordinate(coord) !== null || !_isWithinBoard(coord)) {
           return false;
         }
       }
     } else if (pos[2] === 1) {
       for (let i = 0; i < length; i++) {
         const coord = [pos[0], pos[1] + i];
-        if (shipInCoordinate(coord) !== null || !isWithinBoard(coord)) {
+        if (shipInCoordinate(coord) !== null || !_isWithinBoard(coord)) {
           return false;
         }
       }
@@ -62,8 +61,16 @@ const GameBoard = () => {
   const getSize = () => {
     return [width, height];
   };
-
-  const isWithinBoard = (coord) => {
+  const getShips = () => {
+    return ships;
+  };
+  const getHits = () => {
+    return hits;
+  };
+  const getMisses = () => {
+    return misses;
+  };
+  const _isWithinBoard = (coord) => {
     if (
       coord[0] >= 0 &&
       coord[0] < width &&
@@ -85,14 +92,26 @@ const GameBoard = () => {
       }
     }
   };
+  const areShipsSunk = () => {
+    for (let i = 0; i < ships.length; i++) {
+      const ship = ships[i];
+      if (!ship.isSunk()) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   return {
-    setup,
+    initialize,
     addShip,
-    placeShip,
     shipInCoordinate,
     getSize,
+    getShips,
+    getHits,
+    getMisses,
     receiveAttack,
+    areShipsSunk,
   };
 };
 
