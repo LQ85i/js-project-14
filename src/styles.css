@@ -1,13 +1,99 @@
 body {
-    background-color: rgb(17, 43, 40);
-    margin: 0;
+  background-color: rgb(0, 137, 196);
+  margin: 0;
 }
 
 #content {
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 200px auto 0 auto;
-    width: fit-content;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 0 auto;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: black 1px 1px 3px;
+}
+
+.board {
+  background-color: rgb(202, 202, 202);
+  padding: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+.board-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: black;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-rows: repeat(10, 31px);
+}
+
+.board-grid.blur-out {
+  filter: blur(1px);
+}
+.board-grid:not(.blur-out) {
+  outline: 5px solid rgba(255, 68, 0, 0.493);
+  border-radius: 5px;
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: repeat(10, 31px);
+  height: 31px;
+}
+
+.board-cell {
+  width: 31px;
+  border: 1px solid rgb(102, 102, 102);
+}
+
+.board-grid:not(.blur-out) .board-cell:hover {
+  background-color: rgba(131, 133, 134, 0.466);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.indicator-ship {
+  width: 31px;
+  height: 31px;
+  background-image: url("./icons/square.svg");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(55%) sepia(94%) saturate(1011%) hue-rotate(95deg)
+    brightness(92%) contrast(97%);
+}
+
+.indicator-hit {
+  width: 31px;
+  height: 31px;
+  background-image: url("./icons/cross.svg");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(14%) sepia(83%) saturate(7448%) hue-rotate(6deg)
+    brightness(103%) contrast(119%);
+}
+.indicator-miss {
+  width: 31px;
+  height: 31px;
+  background-image: url("./icons/circle.svg");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(46%) sepia(7%) saturate(2%) hue-rotate(338deg) brightness(91%)
+    contrast(85%);
 }
