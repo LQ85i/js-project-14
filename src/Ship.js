@@ -3,7 +3,7 @@ const Ship = () => {
   let position = undefined; // x, y, direction{0: horizontal, 1: vertical}
   let hits = 0;
   const setLength = (len) => {
-    if (len >= 2 && len <= 5) {
+    if (len >= 1 && len <= 4) {
       length = len;
     }
   };

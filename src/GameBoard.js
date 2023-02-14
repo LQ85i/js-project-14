@@ -1,4 +1,4 @@
-import { Ship } from "./Ship";
+import { includesArray } from "./functions";
 
 const GameBoard = () => {
   let width = undefined;
@@ -7,19 +7,25 @@ const GameBoard = () => {
   let map = undefined;
   let hits = undefined;
   let misses = undefined;
-  const initialize = (w, h) => {
+  let owner = undefined;
+  const initialize = (w, h, newOwner) => {
     if (w >= 1 && h >= 1) {
       width = w;
       height = h;
-      map = Array(width).fill(Array(height).fill(null));
+      map = Array(width);
+      for (let i = 0; i < map.length; i++) {
+        map[i] = Array(height).fill(null);
+      }
       hits = [];
       misses = [];
       ships = [];
+      owner = newOwner;
     }
   };
 
   const addShip = (ship, pos) => {
     //check if there is room for full ship
+
     if (shipPositionAvailable(ship.getLength(), pos)) {
       ships.push(ship);
       ship.setPosition(pos);
@@ -64,11 +70,18 @@ const GameBoard = () => {
   const getShips = () => {
     return ships;
   };
+  const getMap = () => {
+    const mapCopy = map;
+    return mapCopy;
+  };
   const getHits = () => {
     return hits;
   };
   const getMisses = () => {
     return misses;
+  };
+  const getOwner = () => {
+    return owner;
   };
   const _isWithinBoard = (coord) => {
     if (
@@ -82,7 +95,7 @@ const GameBoard = () => {
     return false;
   };
   const receiveAttack = (coord) => {
-    if (!hits.includes(coord) && !misses.includes(coord)) {
+    if (!includesArray(hits, coord) && !includesArray(misses, coord)) {
       const ship = shipInCoordinate(coord);
       if (ship !== null) {
         ship.hit();
@@ -90,7 +103,9 @@ const GameBoard = () => {
       } else {
         misses.push(coord);
       }
+      return true;
     }
+    return false;
   };
   const areShipsSunk = () => {
     for (let i = 0; i < ships.length; i++) {
@@ -108,8 +123,10 @@ const GameBoard = () => {
     shipInCoordinate,
     getSize,
     getShips,
+    getMap,
     getHits,
     getMisses,
+    getOwner,
     receiveAttack,
     areShipsSunk,
   };
