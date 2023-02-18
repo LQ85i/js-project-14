@@ -8,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto 0 auto;
+  margin: 5px auto 0 auto;
   width: fit-content;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ body {
 .board {
   background-color: rgb(202, 202, 202);
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,10 +77,20 @@ body {
     brightness(92%) contrast(97%);
 }
 
-.indicator-hit {
+.indicator-hit:not(.indicator-sunk) {
   width: 31px;
   height: 31px;
   background-image: url("./icons/cross.svg");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(14%) sepia(83%) saturate(7448%) hue-rotate(6deg)
+    brightness(103%) contrast(119%);
+}
+.indicator-sunk {
+  width: 31px;
+  height: 31px;
+  background-image: url("./icons/cross_box.svg");
   background-size: 30px;
   background-repeat: no-repeat;
   background-position: center;
@@ -96,4 +106,24 @@ body {
   background-position: center;
   filter: invert(46%) sepia(7%) saturate(2%) hue-rotate(338deg) brightness(91%)
     contrast(85%);
+}
+.indicator-clear {
+  width: 31px;
+  height: 31px;
+  background-image: url("./icons/small-square-filled.svg");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(46%) sepia(7%) saturate(2%) hue-rotate(338deg) brightness(91%)
+    contrast(85%);
+}
+
+.win-layer {
+  position: absolute;
+  margin-top: 167px;
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  text-shadow: #fff 0 0 5px, #fff 0 0 5px, #fff 0 0 5px, #fff 0 0 5px,
+    #fff 0 0 5px, #fff 0 0 5px;
 }
